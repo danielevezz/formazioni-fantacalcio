@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin python
 from bs4 import BeautifulSoup as bs
 import requests
 import re
@@ -62,4 +62,7 @@ with open("team.csv", "r") as file:
         
         if f"{nome.capitalize()}:" in str(soup):
             print(f"{nome} non è disponibile")
+
+
+input("Premi un tasto per uscire: ")
 
