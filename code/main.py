@@ -58,5 +58,7 @@ with open("team.csv", "r") as file:
                     print(f"{nome} è in panchina con indice di subentro: {perc}")
                 else:
                     print(f"{nome}: {perc}")
-
+        
+        if f"{nome.capitalize()}:" in str(soup):
+            print(f"{nome} non è disponibile")
 
