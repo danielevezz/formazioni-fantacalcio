@@ -7,7 +7,7 @@ url = "https://www.fantagazzetta.com/probabili-formazioni-serie-a"
 
 page = requests.get(url, headers={"User-Agent": "Requests"}).content
 soup = bs(page, "html.parser")
-print("Request ok")
+
 complete = {
     "Ata": "Atalanta",
     "Bol": "Bologna",
@@ -33,8 +33,11 @@ complete = {
 with open("team.csv", "r") as file:
     team = csv.reader(file, delimiter=",")
 
+    giornata = re.search(r"SERIE A - [0-9]+. giornata", str(soup))
+    print(f"{giornata.group()}\n")
+
     # Print the matches
-    print("Le partite sono: \n")
+    print("Le partite sono:")
     for link in soup.find_all("a"):
         href = link.get("href")
 
@@ -53,6 +56,8 @@ with open("team.csv", "r") as file:
 
     print("")
     # Search the player percentages
+    players = []
+
     for player in team:
         if team is None:
             continue
