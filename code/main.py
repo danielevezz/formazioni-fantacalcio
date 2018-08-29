@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup as bs
 import requests
 import re
 import csv
+from Player import Player
 
 url = "https://www.fantagazzetta.com/probabili-formazioni-serie-a"
 
@@ -61,8 +62,12 @@ with open("team.csv", "r") as file:
     for player in team:
         if team is None:
             continue
-        nome = player[0].strip().replace(" ", "-")
-        squadra = complete[player[1]].strip()
+        nome = player[1].strip().replace(" ", "-")
+        squadra = complete[player[2]].strip()
+        posizione = player[0]
+        costo = player[3]
+        p = Player(nome, squadra, posizione, costo)
+        players.append(p)
 
         for link in soup.find_all("a"):
             href = link.get("href")
@@ -87,3 +92,6 @@ with open("team.csv", "r") as file:
 
         if f"{nome.capitalize()}:" in str(soup):
             print(f"{nome} non è disponibile")
+
+for p in players:
+    print(str(p))
