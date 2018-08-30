@@ -67,7 +67,6 @@ with open("team.csv", "r") as file:
         posizione = player[0]
         costo = player[3]
         p = Player(nome, squadra, posizione, costo)
-        players.append(p)
 
         for link in soup.find_all("a"):
             href = link.get("href")
@@ -81,17 +80,24 @@ with open("team.csv", "r") as file:
 
                 sibling = str(sibling)
 
-                perc = re.search(r'[0-9]+%', sibling).group()
+                perc = re.search(r'[0-9]+%', sibling).group()[:-1]
 
                 nome = nome.replace("-", " ").capitalize()
 
                 if panchina:
-                    print(f"{nome} è in panchina con indice di subentro: {perc}")
+                    print(f"{nome} è in panchina con indice di subentro: {perc}%")
                 else:
-                    print(f"{nome}: {perc}")
+                    print(f"{nome}: {perc}%")
+                    p.isPlaying = True
 
-        if f"{nome.capitalize()}:" in str(soup):
+                p.percentage = int(perc)
+
+        if f"{nome.capitalize()}: " in str(soup):
             print(f"{nome} non è disponibile")
+        
+        players.append(p)
 
 for p in players:
     print(str(p))
+
+
