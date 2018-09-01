@@ -10,3 +10,14 @@ class Player:
 
     def __str__(self):
         return f"{self.name} - {self.team}: {self.position} - {self.cost} \ gioca: {self.isPlaying} col {self.percentage}%"
+
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "team": self.team,
+            "position": self.position,
+            "cost": self.cost,
+            "isPlaying": self.isPlaying,
+            "percentage": self.percentage,
+        }
